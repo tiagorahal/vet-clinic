@@ -19,6 +19,10 @@ COMMIT;
 SELECT * FROM animals;
 
 BEGIN;
+DELETE FROM animals;
+ROLLBACK;
+
+BEGIN;
 DELETE FROM animals WHERE date_of_birth > '2022-01-01';
 SAVEPOINT SP1;
 UPDATE animals SET weight_kg = weight_kg*-1;
