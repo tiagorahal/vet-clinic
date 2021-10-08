@@ -12,18 +12,18 @@ CREATE TABLE animals (
 /*ADD NEW COLLUM species*/
 ALTER TABLE animals ADD species VARCHAR(50);
 
-/* CREATED species TABLE */
-CREATE TABLE species (
-  id INT GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(50),
-  PRIMARY KEY(id)
-);
-
 /* CREATED owners TABLE */
 CREATE TABLE owners (
   id INT GENERATED ALWAYS AS IDENTITY,
   full_name VARCHAR(80),
   age INT,
+  PRIMARY KEY(id)
+);
+
+/* CREATED species TABLE */
+CREATE TABLE species (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(50),
   PRIMARY KEY(id)
 );
 
