@@ -35,7 +35,7 @@ ALTER TABLE animals ADD species_id INT;
 ALTER TABLE animals ADD owner_id INT;
 
 /* ADD FOREIGN KEYS TO owner_id AND species_id */
-ALTER TABLE animals ADD CONSTRAINT owners
+ALTER TABLE animals ADD CONSTRAINT owners_fk
 FOREIGN KEY(owner_id) REFERENCES owners(id);
 
 ALTER TABLE animals ADD CONSTRAINT species_fk
@@ -70,3 +70,16 @@ CREATE TABLE visits (
 	CONSTRAINT vets_fk
   FOREIGN KEY(vets_id) REFERENCES vets (id);
 );
+
+/*Week 2*/
+/*Day 1*/
+
+/*Add an email column to owners table*/
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+/*Create indexes to improve execution time*/
+CREATE INDEX visits_animal_id_asc ON visits(animal_id ASC);
+
+CREATE INDEX visits_vet_id_asc ON visits(vet_id ASC);
+
+CREATE INDEX owners_email_asc ON owners(email ASC);

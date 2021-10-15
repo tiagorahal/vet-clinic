@@ -57,3 +57,12 @@ SELECT a.name, v.name, date_of_visit FROM visits JOIN vets v ON vets_id = v.id J
 SELECT * FROM visits JOIN animals ON animals_id = animals.id JOIN vets ON vets_id = vets.id;
 SELECT COUNT(*) FROM vets v JOIN visits ON v.id = visits.vets_id LEFT JOIN specializations s ON v.id = s.vets_id LEFT JOIN animals a ON animals_id = a.id WHERE s.species_id != a.species_id OR s.species_id IS NULL;
 SELECT animals.name, COUNT(animals.name) FROM visits JOIN vets ON vets_id = vets.id JOIN animals ON animals_id = animals.id WHERE vets.name = 'Maisy Smith' GROUP BY animals.name;
+
+/*Week 2*/
+/*Day 1*/
+
+SELECT COUNT(*) FROM visits where animal_id = 4;
+
+SELECT * FROM visits where vet_id = 2;
+
+SELECT * FROM owners where email = 'owner_18327@mail.com';
