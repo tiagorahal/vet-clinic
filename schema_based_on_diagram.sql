@@ -1,48 +1,48 @@
+CREATE DATABASE clinic;
+
 CREATE TABLE patients (
-  id INT GENERATED ALWAYS AS IDENTITY,
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name VARCHAR(100),
-  date_of_birth DATE,
-  PRIMARY KEY(id)
+  date_of_birth DATE
 );
+
+CREATE TABLE treatments (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  type VARCHAR(100),
+  name  VARCHAR(100)
+);
+
 CREATE TABLE medical_histories (
-  id INT GENERATED ALWAYS AS IDENTITY,
-  admitted_at TIMESTAMP(0),
-  status VARCHAR(30),
-  patient_id INT,
-  CONSTRAINT patient_fk
-  FOREIGN KEY(patient_id) REFERENCES patients(id);  
-  PRIMARY KEY(id)
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  admitted_at TIMESTAMP,
+  patient_id INT REFERENCES patients(id),
+  status VARCHAR(100)
 );
+
 CREATE TABLE invoices (
-  id INT GENERATED ALWAYS AS IDENTITY,
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   total_amount DECIMAL,
-  generated_at TIMESTAMP(0),
-  payed_at TIMESTAMP(0),
-  medical_history_id INT,
-  CONSTRAINT medical_histories_fk
-  FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id);  
-  PRIMARY KEY(id)
+  generated_at TIMESTAMP,
+  payed_at TIMESTAMP,
+  medical_history_id INT REFERENCES medical_histories(id)
 );
-CREATE TABLE invoice_item (
-  id INT GENERATED ALWAYS AS IDENTITY,
+
+CREATE TABLE invoice_items (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   unit_price DECIMAL,
   quantity INT,
   total_price DECIMAL,
-  invoice_id INT,
-  treatment_id INT,
-  CONSTRAINT invoice_fk
-  FOREIGN KEY(invoice_id) REFERENCES invoices(id);  
-  CONSTRAINT treatment_fk
-  FOREIGN KEY(treatment_id) REFERENCES treatments(id);  
-  PRIMARY KEY(id)
+  invoice_id INT REFERENCES invoices(id),
+  treatment_id INT REFERENCES treatments(id)
 );
-CREATE TABLE treatments (
-  id INT GENERATED ALWAYS AS IDENTITY,
-  type VARCHAR(100),
-  name VARCHAR(100),
-  PRIMARY KEY(id)
+
+CREATE TABLE histories_treatments (
+  treatment_id INT REFERENCES treatments(id),
+  medical_history_id INT REFERENCES medical_histories(id)
 );
-CREATE TABLE medical_histories_treatments (  
-  medical_history_id INTEGER REFERENCES medical_histories(id),
-  treatments_id INTEGER REFERENCES treatments(id)   
-);
+
+CREATE INDEX medical_history ON medical_histories (id);
+CREATE INDEX invoice ON invoices (id);
+CREATE INDEX invoice_item ON invoice_items (id);
+CREATE INDEX history_treatment ON histories_treatments (treatment_id);
+CREATE INDEX medical_history_treatment ON histories_treatments (medical_history_id);
